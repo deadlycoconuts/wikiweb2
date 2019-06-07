@@ -25,25 +25,13 @@ def scrape(self_url, currentLevel):
 
     listTags = [] # list to store all hyperlinks found
 
-    # Use this to search only the FIRST paragraph of each page for hyperlinks
+    # OPTION 1: Use this to search only the FIRST paragraph of each page for hyperlinks
     tag = soup.find('p') # search for first paragraph
-    #print(tag.get('class') != None)
-    #print(tag.find('a'))
     while (tag.find('a') != None and 'Coordinates' in tag.find('a').contents) or (tag.get('class') != None): # if first search result is not a pure <p> tag nor a coordinate link
         tag = tag.findNext('p')
-    """
-    while (tag.find('a') != None and 'Coordinates' in tag.find('a').contents): # if first search result is not a pure <p> tag
-        print("search next")
-        while (tag.get('class') != None):
-            print("search next2")
-            tag = tag.findNext('p')
-        tag = tag.findNext('p')
-    """
-    #print('Coordinates' in tag.find('a').contents)
     listTags.extend(tag.findAll('a'))
     
-    #print(listTags)
-    # Use this to search the introduction of each page only for hyperlinks
+    # OPTION 2: Use this to search the introduction of each page only for hyperlinks
     """
     stop_at = soup.find('h2') # finds the first h2 element i.e. where the first subsection header is found
     class_extr = stop_at.find_all_previous('p') # extracts all elements before this element
@@ -51,7 +39,7 @@ def scrape(self_url, currentLevel):
         listTags.extend(paragraph.findAll('a'))
     """
     
-    # Use this to search the entire page for hyperlinks
+    # OPTION 3: Use this to search the entire page for hyperlinks
     """
     for paragraph in soup.findAll('p'): # for each paragraph found
         listTags.extend(paragraph.findAll('a')) # stores all hyperlinks found
