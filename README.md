@@ -44,7 +44,7 @@ The application is also supported on mobile browsers on touch devices. In additi
     
     `pip install -r requirements.txt`
     
-3. Ensure that line 117 of your local copy of process_link.py has been commented out.
+3. Ensure that line 105 of your local copy of process_link.py has been commented out.
 
     `#requests_toolbelt.adapters.appengine.monkeypatch()`
     
