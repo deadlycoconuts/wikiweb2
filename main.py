@@ -12,14 +12,16 @@ def index():
 @app.route("/result", methods=['GET', 'POST'])
 def result():
     data = []
-    error = None
+    #error = None # to implement in the future
     source_url = request.form.get('search_body') # gets search URL from fill-in form
     max_level = request.form.get('max_level')
-
+    uastring = request.headers.get('user_agent')
+    isMobileBrowser = False
+    if "Mobile" in uastring:
+        isMobileBrowser = True
     # data processing
-    if source_url:
-        nodeList, linkList = full_clean_up(source_url, 0, max_level)
-    # to edit throw error/exception
+    if source_url: # to edit throw error/exception
+        nodeList, linkList = full_clean_up(source_url, 0, max_level, isMobileBrowser)
 
     return render_template("result.html", nodeList = nodeList, linkList = linkList)
 
