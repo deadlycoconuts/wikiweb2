@@ -1,11 +1,11 @@
-# Wikiweb2
+# Wikipedia Graph Mapper
 
 <img src="https://raw.githubusercontent.com/DeadlyCoconuts/wikiweb2/master/preview.png" height="70%" width=70%>
 
 This is a web application designed to visualise the links between different Wikipedia pages. Try it out at: http://www.wikiweb.appspot.com
 
 ## How to use
-<img src="https://raw.githubusercontent.com/DeadlyCoconuts/wikiweb2/master/preview2.png">
+<img src="https://raw.githubusercontent.com/DeadlyCoconuts/wikiweb2/d8a9d46695e0898d946486ee12eaea6042242999/preview2.png">
 1. Begin by entering the URL of your desired source Wikipedia page into the the first field.\
 2. Enter the maximum search depth level desired*.\
 3. Click on 'Create my graph!'.\
