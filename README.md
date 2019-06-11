@@ -4,6 +4,16 @@
 
 This is a web application designed to visualise the links between different Wikipedia pages. Try it out at: http://www.wikiweb.appspot.com
 
+## Table of Contents (Optional)
+
+- [How to use](#installation)
+- [Features](#features)
+- [Contributing](#contributing)
+- [Team](#team)
+- [FAQ](#faq)
+- [Support](#support)
+- [License](#license)
+
 ## How to use
 <img src="https://raw.githubusercontent.com/DeadlyCoconuts/wikiweb2/master/preview2.png" height="70%" width=70%>
 
@@ -25,12 +35,25 @@ This is a web application designed to visualise the links between different Wiki
 
  *Unforunately, the maximum search level that works on the server which hosts this application is 2. Nonetheless, you should be able to run the programme to your heart's content at **any** search depth on a development server.
 
-## Support
+## Features
+
 <img src="https://raw.githubusercontent.com/DeadlyCoconuts/wikiweb2/master/mobilepreview1.png" height="30%" width=30%> <img src="https://raw.githubusercontent.com/DeadlyCoconuts/wikiweb2/master/mobilepreview2.png" height="30%" width=30%>
 
-The application is also supported on mobile browsers on touch devices. In addition, the graph is modified to pack the nodes closer to one another in order to fit within the narrower screen dimensions.
+- Scrapes URLs found within the first paragraph/introduction/entire document of a Wikipedia page, and repeats the process for each subsequent link found
+- Offers customisation of the search depth and breadth level of the scraping
+    - Breadth: Select the relevant section of each Wikipedia page to look for URLs
+    - Depth: Enter the maximum search depth of the graph from the source node
+- Displays the interconnections between these URLs found in an interactive graph
+    - Click on a node to display only its neighbours
+    - Click on the same node again to revert back to the original display
+    - Drag the nodes around to rearrange and interact with them
+- Supported by mobile browsers on touch devices with smaller screen resolutions
+    - Resizing of webpages
+    - Modification of the graph to pack nodes closer to one another to fit narrower screen dimensions
 
-## How to run the application locally
+## Installation
+
+To run the application locally, follow the steps below:
 1. Clone the repository on your local device.
 
     `git clone https://github.com/DeadlyCoconuts/wikiweb2/`
