@@ -9,8 +9,19 @@ This is a web application designed to visualise the links between different Wiki
 
 1. Begin by entering the URL of your desired source Wikipedia page into the the first field. 
 2. Enter the maximum search depth level desired*.
-3. Click on 'Create my graph!'.
-4. Voilà!
+3. Select a search mode.
+    There are 3 search modes available:
+    - Search for links from the 1st paragraph
+        
+        Uses links found within the 1st paragraph (of the introduction) of each Wikipedia page to generate a graph.
+    - Search for links from the introduction
+        
+        Uses links found within the introduction (may contain multiple paragraphs) of each Wikipedia page to generate a graph.
+    - Search for links from the entire page
+        
+        Uses links found within the entire page to generate a graph.
+4. Click on 'Create my graph!'.
+5. Voilà!
 
  *Unforunately, the maximum search level that works on the server which hosts this application is 2. Nonetheless, you should be able to run the programme to your heart's content at **any** search depth on a development server.
 
