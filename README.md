@@ -6,9 +6,9 @@ This is a web application designed to visualise the links between different Wiki
 
 ## Table of Contents
 
-- [How to use](#How to use)
+- [How to use](#How-to-use)
 - [Features](#features)
-- [Installation](#Installation)
+- [Installation](#installation)
 
 ## How to use
 <img src="https://raw.githubusercontent.com/DeadlyCoconuts/wikiweb2/master/preview2.png" height="70%" width=70%>
