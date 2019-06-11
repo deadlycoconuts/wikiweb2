@@ -5,7 +5,7 @@
 This is a web application designed to visualise the links between different Wikipedia pages. Try it out at: http://www.wikiweb.appspot.com
 
 ## How to use
-<img src="https://raw.githubusercontent.com/DeadlyCoconuts/wikiweb2/master/preview2.png">
+<img src="https://raw.githubusercontent.com/DeadlyCoconuts/wikiweb2/master/preview2.png" height="70%" width=70%>
 
 1. Begin by entering the URL of your desired source Wikipedia page into the the first field. 
 2. Enter the maximum search depth level desired*.
