@@ -47,6 +47,7 @@ This is a web application designed to visualise the links between different Wiki
 To run the application locally, follow the steps below:
 1. Clone the repository on your local device.  
     ```git clone https://github.com/DeadlyCoconuts/wikiweb2/```
+    
 2. Create a local environment to install the dependencies defined in requirements.txt  
     If you do not already have virtualenv installed:  
     ```
@@ -59,9 +60,12 @@ To run the application locally, follow the steps below:
     ```source [name of your virtual environment]/bin/activate```  
     To install all dependencies indicated in requirements.txt:  
     ```pip install -r requirements.txt```     
+    
 3. Ensure that line 105 of your local copy of process_link.py has been commented out.  
-    ```#requests_toolbelt.adapters.appengine.monkeypatch()```     
+    ```#requests_toolbelt.adapters.appengine.monkeypatch()```  
+    
 4. Run your local copy of main.py.  
-    ```python main.py```  
+    ```python main.py```
+    
 5. Visit your local application on your browser at http://127.0.0.1:5000.
 
