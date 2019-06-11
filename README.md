@@ -8,7 +8,7 @@ This is a web application designed to visualise the links between different Wiki
 - [How to use](#How-to-use)
 - [Features](#features)
 - [Installation](#installation)
-- [Developer Guide](#developer-guide)
+- [Full Documentation](#full-documentation)
 
 ## How to use
 <img src="https://raw.githubusercontent.com/DeadlyCoconuts/wikiweb2/master/preview2.png" height="70%" width=70%>
@@ -71,6 +71,6 @@ To run the application locally, follow the steps below:
     
 5. Visit your local application on your browser at http://127.0.0.1:5000.
 
-## Developer Guide
+## Full Documentation
 
 Refer to the wiki of this repository for more details.
