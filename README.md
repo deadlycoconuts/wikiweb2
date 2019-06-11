@@ -17,14 +17,11 @@ This is a web application designed to visualise the links between different Wiki
 2. Enter the maximum search depth level desired*.
 3. Select a search mode.
     There are 3 search modes available:
-    - Search for links from the 1st paragraph
-        
+    - Search for links from the 1st paragraph  
         Uses links found within the 1st paragraph (of the introduction) of each Wikipedia page to generate a graph.
-    - Search for links from the introduction
-        
+    - Search for links from the introduction      
         Uses links found within the introduction (may contain multiple paragraphs) of each Wikipedia page to generate a graph.
-    - Search for links from the entire page
-        
+    - Search for links from the entire page   
         Uses links found within the entire page to generate a graph.
 4. Click on 'Create my graph!'.
 5. Voilà!
