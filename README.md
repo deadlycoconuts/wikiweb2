@@ -4,15 +4,11 @@
 
 This is a web application designed to visualise the links between different Wikipedia pages. Try it out at: http://www.wikiweb.appspot.com
 
-## Table of Contents (Optional)
+## Table of Contents
 
-- [How to use](#installation)
+- [How to use](#How to use)
 - [Features](#features)
-- [Contributing](#contributing)
-- [Team](#team)
-- [FAQ](#faq)
-- [Support](#support)
-- [License](#license)
+- [Installation](#Installation)
 
 ## How to use
 <img src="https://raw.githubusercontent.com/DeadlyCoconuts/wikiweb2/master/preview2.png" height="70%" width=70%>
