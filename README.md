@@ -50,10 +50,8 @@ To run the application locally, follow the steps below:
     
 2. Create a local environment to install the dependencies defined in requirements.txt  
     If you do not already have virtualenv installed:  
-    ```
-    pip install virtualenv  
-    pip install virtualenvwrapper-win
-    ```  
+    ```pip install virtualenv```  
+    ```pip install virtualenvwrapper-win```  
     To create a virtual environment, go to the project directory and enter:  
     ```virtualenv [name of your virtual environment]```   
     To activate your virtual environment:  
@@ -61,7 +59,7 @@ To run the application locally, follow the steps below:
     To install all dependencies indicated in requirements.txt:  
     ```pip install -r requirements.txt```     
     
-3. Ensure that line 105 of your local copy of process_link.py has been commented out.  
+3. Ensure that line 99 of your local copy of process_link.py has been commented out.  
     ```#requests_toolbelt.adapters.appengine.monkeypatch()```  
     
 4. Run your local copy of main.py.  
