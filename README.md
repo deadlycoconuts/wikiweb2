@@ -1,5 +1,4 @@
 # Wikipedia Graph Mapper
-
 <img src="https://raw.githubusercontent.com/DeadlyCoconuts/wikiweb2/master/preview.png" height="70%" width=70%>
 
 This is a web application designed to visualise the links between different Wikipedia pages. Try it out at: http://www.wikiweb.appspot.com
@@ -29,7 +28,6 @@ This is a web application designed to visualise the links between different Wiki
  *Unforunately, the maximum search level that works on the server which hosts this application is 2. Nonetheless, you should be able to run the programme to your heart's content at **any** search depth on a development server.
 
 ## Features
-
 <img src="https://raw.githubusercontent.com/DeadlyCoconuts/wikiweb2/master/mobilepreview1.png" height="30%" width=30%> <img src="https://raw.githubusercontent.com/DeadlyCoconuts/wikiweb2/master/mobilepreview2.png" height="30%" width=30%>
 
 - Scrapes URLs found within the first paragraph/introduction/entire document of a Wikipedia page, and repeats the process for each subsequent link found
@@ -47,12 +45,9 @@ This is a web application designed to visualise the links between different Wiki
 ## Installation
 
 To run the application locally, follow the steps below:
-1. Clone the repository on your local device.
-
+1. Clone the repository on your local device.  
     `git clone https://github.com/DeadlyCoconuts/wikiweb2/`
-
-2. Create a local environment to install the dependencies defined in requirements.txt
-    
+2. Create a local environment to install the dependencies defined in requirements.txt  
     If you do not already have virtualenv installed:
     
     `pip install virtualenv`
