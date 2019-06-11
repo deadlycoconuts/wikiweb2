@@ -8,6 +8,7 @@ This is a web application designed to visualise the links between different Wiki
 - [How to use](#How-to-use)
 - [Features](#features)
 - [Installation](#installation)
+- [Developer Guide](#developer-guide)
 
 ## How to use
 <img src="https://raw.githubusercontent.com/DeadlyCoconuts/wikiweb2/master/preview2.png" height="70%" width=70%>
@@ -51,11 +52,14 @@ To run the application locally, follow the steps below:
 2. Create a local environment to install the dependencies defined in requirements.txt  
     If you do not already have virtualenv installed:  
     ```pip install virtualenv```  
-    ```pip install virtualenvwrapper-win```  
+    ```pip install virtualenvwrapper-win```
+    
     To create a virtual environment, go to the project directory and enter:  
     ```virtualenv [name of your virtual environment]```   
+    
     To activate your virtual environment:  
-    ```source [name of your virtual environment]/bin/activate```  
+    ```source [name of your virtual environment]/bin/activate``` 
+    
     To install all dependencies indicated in requirements.txt:  
     ```pip install -r requirements.txt```     
     
@@ -67,3 +71,6 @@ To run the application locally, follow the steps below:
     
 5. Visit your local application on your browser at http://127.0.0.1:5000.
 
+## Developer Guide
+
+Refer to the wiki of this repository for more details.
