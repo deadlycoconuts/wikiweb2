@@ -73,4 +73,4 @@ To run the application locally, follow the steps below:
 
 ## Full Documentation
 
-Refer to the wiki of this repository for more details.
+Refer to the wiki of this repository at https://github.com/DeadlyCoconuts/wikiweb2/wiki for more details.
