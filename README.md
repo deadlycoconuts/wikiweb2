@@ -1,5 +1,5 @@
 # Wikipedia Graph Mapper
-<img src="https://raw.githubusercontent.com/DeadlyCoconuts/wikiweb2/master/preview.png" height="70%" width=70%>
+<img src="https://user-images.githubusercontent.com/36802364/59440666-9fdcd880-8df7-11e9-8e5d-a266b1c12218.png" height="70%" width=70%>
 
 This is a web application designed to visualise the links between different Wikipedia pages. Try it out at: http://www.wikiweb.appspot.com
 
@@ -11,7 +11,7 @@ This is a web application designed to visualise the links between different Wiki
 - [Full Documentation](#full-documentation)
 
 ## How to use
-<img src="https://raw.githubusercontent.com/DeadlyCoconuts/wikiweb2/master/preview2.png" height="70%" width=70%>
+<img src="https://user-images.githubusercontent.com/36802364/59440802-d155a400-8df7-11e9-8763-4efccc1faba6.png" height="70%" width=70%>
 
 1. Begin by entering the URL of your desired source Wikipedia page into the the first field. 
 2. Enter the maximum search depth level desired*.
@@ -29,7 +29,7 @@ This is a web application designed to visualise the links between different Wiki
  *Unforunately, the maximum search level that works on the server which hosts this application is 2. Nonetheless, you should be able to run the programme to your heart's content at **any** search depth on a development server.
 
 ## Features
-<img src="https://raw.githubusercontent.com/DeadlyCoconuts/wikiweb2/master/mobilepreview1.png" height="30%" width=30%> <img src="https://raw.githubusercontent.com/DeadlyCoconuts/wikiweb2/master/mobilepreview2.png" height="30%" width=30%>
+<img src="https://user-images.githubusercontent.com/36802364/59440838-df0b2980-8df7-11e9-9d4b-0a16b7741368.png" height="30%" width=30%> <img src="https://user-images.githubusercontent.com/36802364/59440841-e0d4ed00-8df7-11e9-8c13-9194ce8e3bdb.png" height="30%" width=30%>
 
 - Scrapes URLs found within the first paragraph/introduction/entire document of a Wikipedia page, and repeats the process for each subsequent link found
 - Offers customisation of the search depth and breadth level of the scraping
