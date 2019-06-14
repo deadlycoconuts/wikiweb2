@@ -141,8 +141,8 @@ function updateGraph() {
         .append('text')
         .text(node => node.label)
         .attr('font-size', 7)
-        .attr('dx', 15)
-        .attr('dy', 4)
+        .attr('dx', 15) // defines position of label
+        .attr('dy', 4) // defines position of label
         .attr('fill', node => getTextColor(node, []));
     
     textElements = textEnter.merge(textElements);
@@ -167,19 +167,26 @@ function updateGraph() {
 
 function updateSimulation() {
     updateGraph();
-    
+
     simulation.nodes(nodes).on('tick', () => {
+        /*
+         // Use this to prevent nodes from flying out of bounds
         nodeElements
-            .attr("cx", node => Math.max(radius, Math.min(width - radius, node.x))) // prevents node from flying out of bounds
-            .attr("cy", node => Math.max(radius, Math.min(height - radius, node.y))),
+            .attr("cx", node => Math.max(radius, Math.min(width - radius, node.x))) 
+            .attr("cy", node => Math.max(radius, Math.min(height - radius, node.y)));
+        */
+        // Use this to let nodes fly around freely
+        nodeElements
+            .attr("cx", node => node.x) 
+            .attr("cy", node => node.y);
         textElements
             .attr("x", node => node.x)
-            .attr("y", node => node.y),
+            .attr("y", node => node.y);
         linkElements
             .attr('x1', link => link.source.x)
             .attr('y1', link => link.source.y)
             .attr('x2', link => link.target.x)
-            .attr('y2', link => link.target.y)
+            .attr('y2', link => link.target.y);
     });
 
     simulation.force('link').links(links);

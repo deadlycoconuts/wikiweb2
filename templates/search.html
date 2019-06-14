@@ -12,14 +12,22 @@
         <h1>Wikipedia Graph Mapper</h1>
         <form class="form-inline" method="POST" action="{{ url_for('result')}}">
             <!--Search Form-->
-            <div class="input">
+            <div class="input-bar">
                 <input type="text" name="search_body" placeholder="Enter URL here..">
             </div> 
-            <p>
-            <div class="input">
+            <div class="input-bar">
                 <input type="text" name="max_level" placeholder="Enter MAX search depth here..">
             </div>
-            </p> 
+            <!--Dropdown list-->
+            <div class="select-bar">
+                <select name="comp_select" class="selectpicker form-control">
+                    {% for option in options %}
+                    <option value="{{ option }}">
+                        {{ option }}
+                    </option>
+                    {% endfor %}
+                </select>
+            </div>
             <!--Button-->
             <button type="submit" class="btn">Create my graph!</button>
         </form>
