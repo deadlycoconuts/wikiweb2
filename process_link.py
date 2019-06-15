@@ -11,17 +11,30 @@ SEARCH_MODE = 1 # default search mode
 entryList = []
 
 def scrape(self_url, currentLevel):
-    if currentLevel + 1 > MAX_LEVEL: # stops sending requests if spider is going to reach max crawl level
-        return
-
     currentLevel += 1
     
-    #print("Currently scraping " + self_url)
+    print("Currently scraping " + self_url)
     page = requests.get(self_url)
     # TODO throw exception here
     soup = BeautifulSoup(page.content, 'lxml')
 
+    ### Gets page title
     self_title = soup.title.contents[0] # stores title of page
+    
+    ### Gets page image
+    self_img = soup.find('img')
+    divTag = soup.find('div', {"class": "mw-parser-output"})
+    self_img = divTag.find('img')
+    if(self_img == None):
+        self_img = None
+    else:
+        self_img = "https:" + self_img.get('src')
+
+    if currentLevel > MAX_LEVEL:
+        entry = {"self_title": self_title, "self_url": self_url, "self_img": self_img, "ext_title": None, "ext_url": None, "current_level": currentLevel} # stores a dictionary of the information regarding each hyperlink i.e. which page it is found on
+        if entry not in entryList: # filters out entries already present
+            entryList.append(entry)
+        return
 
     listTags = [] # list to store all hyperlinks found
 
@@ -46,36 +59,33 @@ def scrape(self_url, currentLevel):
         if not any(keyword in str(tag) for keyword in listOfFilterKeywords): # checks if keyword is found; if so, skip this tag
             if 'title' in tag.attrs and 'href' in tag.attrs: # checks if title and link elements exist in the tag
                 #listLinks.append((tag['title'], HOME_URL + tag['href'])) # appends a title-url pair to listLinks
-                entry = {"self_title": self_title, "self_url": self_url, "ext_title": tag['title'], "ext_url": HOME_URL + tag['href'], "current_level": currentLevel} # stores a dictionary of the information regarding each hyperlink i.e. which page it is found on
+                entry = {"self_title": self_title, "self_url": self_url, "self_img": self_img, "ext_title": tag['title'], "ext_url": HOME_URL + tag['href'], "current_level": currentLevel} # stores a dictionary of the information regarding each hyperlink i.e. which page it is found on
                 if entry not in entryList: # filters out entries already present
                     entryList.append(entry)
                 scrape(entry["ext_url"], currentLevel) # depth-search via recursion
-    """
-    for link in listLinks: # for each hyperlink found
-        entry = {"self_title": self_title, "self_url": self_url, "ext_title": link[0], "ext_url": link[1], "current_level": currentLevel} # stores a dictionary of the information regarding each hyperlink i.e. which page it is found on
-        if entry not in entryList: # filters out links already present
-            entryList.append(entry)
-        scrape(link[1], currentLevel) # depth-search via recursion """
     return entryList
 
 def proc_data(entryList, isMobileBrowser): 
     # creates a list to store unique urls found
     urls = list(set([ data['self_url'] for data in entryList ])) # removes URL duplicates from self_urls
     urls.extend(list(set([ data['ext_url'] for data in entryList ]))) # adds other URLs branches to list
-   
+    
+    #print(entryList)
     nodeList = [] # to store nodes
     for url in urls:
         for data in entryList:
             if url == data["self_url"]:
-                entry = {"id": url, "label": data["self_title"], "level": data["current_level"] - 1}
+                entry = {"id": url, "label": data["self_title"], "level": data["current_level"] - 1, "img": data["self_img"]}
                 if entry not in nodeList:
                     nodeList.append(entry)
                 break
-            elif url == data["ext_url"]:
-                entry = {"id": url, "label": data["ext_title"], "level": data["current_level"]}
+            """
+            elif data["current_level"] == MAX_LEVEL and url == data["ext_url"]: # search again from self_urls?
+                entry = {"id": url, "label": data["ext_title"], "level": data["current_level"], "img": None} # fix
                 if entry not in nodeList:
                     nodeList.append(entry)
                 break
+            """
     
     linkList = [] # to store links
     for data in entryList:
@@ -84,7 +94,8 @@ def proc_data(entryList, isMobileBrowser):
         else:
             # strength formula 
             strength = 0.8 - 0.4*data["current_level"]/MAX_LEVEL
-        linkList.append({"target": data["self_url"], "source": data["ext_url"], "strength": strength})
+        if data["ext_url"] != None:
+            linkList.append({"target": data["self_url"], "source": data["ext_url"], "strength": strength})
     
     return nodeList, linkList
 

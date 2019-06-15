@@ -5,7 +5,7 @@ var links = [...baseLinks];
 
 var width = window.innerWidth; 
 var height = window.innerHeight;
-var radius = 7;
+var radius = 12;
 
 var svg = d3.select('svg');
 svg.attr('width', width).attr('height', height); // fills window
@@ -106,27 +106,41 @@ var nodeGroup = svg.append("g").attr("class", "nodes");
 var textGroup = svg.append("g").attr("class", "texts");
 var linkGroup = svg.append("g").attr("class", "links");
 
-let nodeElements, textElements, linkElements;
+let nodeElements, textElements, linkElements, imgElements;
 
 var selectedId;
 
 function updateGraph() {
     // update nodes
     nodeElements = nodeGroup 
-        .selectAll('circle')
+        .selectAll('image')
         .data(nodes, node => node.id); // binds circles to nodes created
     
     nodeElements.exit().remove(); // selects and removes elements that need to be removed
-
-    const nodeEnter = nodeElements 
+    
+    const nodeEnter = nodeElements
+        .enter()
+        .append('svg:image') // start
+        .attr('class', 'circle')
+        .attr('xlink:href', node => (node.img != null) ? node.img : "https://opengameart.org/sites/default/files/styles/medium/public/Transparency100.png")
+        .attr('stroke', '#E5E5E5')
+        .attr('stroke-width', 3)
+        .attr('height', radius*2)
+        .attr('width', radius*2)
+        .call(dragDrop)
+        .on('click', selectNode);
+    
+    /*
+    const nodeEnter = nodeElements
         .enter()
         .append('circle') // creates circles for nodes without a circle element
         .attr('r', radius)
-        .attr('fill', node => getNodeColor(node))
+        .attr('fill', node => (node.img != null) ? 'url(#node.img)' : "https://opengameart.org/sites/default/files/styles/medium/public/Transparency100.png")
+        //.attr('fill', node => getNodeColor(node))
         .attr('stroke', node => d3.rgb(getNodeColor(node)).darker())
         .call(dragDrop)
         .on('click', selectNode);
-
+    */
     nodeElements = nodeEnter.merge(nodeElements);
 
     // update texts
@@ -141,8 +155,8 @@ function updateGraph() {
         .append('text')
         .text(node => node.label)
         .attr('font-size', 7)
-        .attr('dx', 15) // defines position of label
-        .attr('dy', 4) // defines position of label
+        .attr('dx', 25) // defines position of label
+        .attr('dy', 15) // defines position of label
         .attr('fill', node => getTextColor(node, []));
     
     textElements = textEnter.merge(textElements);
@@ -177,16 +191,16 @@ function updateSimulation() {
         */
         // Use this to let nodes fly around freely
         nodeElements
-            .attr("cx", node => node.x) 
-            .attr("cy", node => node.y);
+            .attr("x", node => node.x) 
+            .attr("y", node => node.y);
         textElements
             .attr("x", node => node.x)
             .attr("y", node => node.y);
         linkElements
-            .attr('x1', link => link.source.x)
-            .attr('y1', link => link.source.y)
-            .attr('x2', link => link.target.x)
-            .attr('y2', link => link.target.y);
+            .attr('x1', link => link.source.x+radius)
+            .attr('y1', link => link.source.y+radius)
+            .attr('x2', link => link.target.x+radius)
+            .attr('y2', link => link.target.y+radius);
     });
 
     simulation.force('link').links(links);

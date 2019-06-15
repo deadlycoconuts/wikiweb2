@@ -126,3 +126,8 @@ body {
   .button:hover{
     color: #f39c12;
   }
+  .circle {
+    width: 6px;
+    background-color: #fff;
+    clip-path: circle(40%);
+  }
