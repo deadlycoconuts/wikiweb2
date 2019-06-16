@@ -21,13 +21,11 @@ def scrape(self_url, currentLevel):
     self_title = soup.title.contents[0] # stores title of page
     
     ### Gets page image
-    #self_img = soup.find('img')
     divTag = soup.find('div', {"class": "mw-parser-output"})
     if divTag != None:
         self_img = divTag.find('img')
     else:
         self_img = soup.find('img')
-    
     if(self_img == None):
         self_img = None
     else:
@@ -36,6 +34,7 @@ def scrape(self_url, currentLevel):
             self_img = self_img.findNext('img')
         self_img = "https:" + self_img.get('src')
 
+    # Terminates scraping here if max search depth reached
     if currentLevel > MAX_LEVEL:
         entry = {"self_title": self_title, "self_url": self_url, "self_img": self_img, "ext_title": None, "ext_url": None, "current_level": currentLevel} # stores a dictionary of the information regarding each hyperlink i.e. which page it is found on
         if entry not in entryList: # filters out entries already present
@@ -47,7 +46,7 @@ def scrape(self_url, currentLevel):
     if SEARCH_MODE == 1: # OPTION 1: Use this to search only the FIRST paragraph of each page for hyperlinks
         tag = soup.find('p') # search for first paragraph
         table = tag.findParents('table')
-        while table: # table is not empty; tag is found in a table
+        while table or 'class' in tag.attrs: # table is not empty; tag is found in a table
             tag = tag.findNext('p')
             table = tag.findParents('table')
         while (tag.find('a') != None and 'Coordinates' in tag.find('a').contents) or ((tag.get('class') != "mw-redirect") and (tag.get('class') != None)): # if first search result is not a pure <p> tag nor a coordinate link
@@ -114,14 +113,17 @@ def proc_data(entryList, isMobileBrowser):
 def generate_lists(self_url, max_level, isMobileBrowser, search_mode):
     #requests_toolbelt.adapters.appengine.monkeypatch() # patches requests as it has compatibility issues with Google App Engine/ comment this out to test on development server
 
+    # Changes HOME_URL 
     new_wikipedia_region = self_url.split("wikipedia.org", 1)[0]
     new_home_url = new_wikipedia_region + "wikipedia.org"
     global HOME_URL
     HOME_URL = new_home_url
 
+    # Sets MAX_LEVEL
     global MAX_LEVEL
     MAX_LEVEL = int(max_level)
     
+    # Sets SEARCH_MODE
     global SEARCH_MODE
     SEARCH_MODE = int(search_mode)
 
