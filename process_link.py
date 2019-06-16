@@ -28,7 +28,7 @@ def scrape(self_url, currentLevel):
     if SEARCH_MODE == 1: # OPTION 1: Use this to search only the FIRST paragraph of each page for hyperlinks
         tag = soup.find('p') # search for first paragraph
         table = tag.findParents('table')
-        while table: # table is not empty; tag is found in a table
+        while table or 'class' in tag.attrs: # table is not empty; tag is found in a table
             tag = tag.findNext('p')
             table = tag.findParents('table')
         while (tag.find('a') != None and 'Coordinates' in tag.find('a').contents) or (tag.get('class') != None): # if first search result is not a pure <p> tag nor a coordinate link
