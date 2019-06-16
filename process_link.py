@@ -6,7 +6,6 @@ from bs4 import BeautifulSoup
 HOME_URL = "https://en.wikipedia.org"
 MAX_LEVEL = 1 # max crawl depth
 SEARCH_MODE = 1 # default search mode
-#START_URL = "https://en.wikipedia.org/wiki/Unus_pro_omnibus,_omnes_pro_uno"
 
 entryList = []
 
@@ -22,12 +21,19 @@ def scrape(self_url, currentLevel):
     self_title = soup.title.contents[0] # stores title of page
     
     ### Gets page image
-    self_img = soup.find('img')
+    #self_img = soup.find('img')
     divTag = soup.find('div', {"class": "mw-parser-output"})
-    self_img = divTag.find('img')
+    if divTag != None:
+        self_img = divTag.find('img')
+    else:
+        self_img = soup.find('img')
+    
     if(self_img == None):
         self_img = None
     else:
+        listOfIMGFilterKeywords = ["Edit-clear.svg", "book-new.svg", "Ambox_important.svg", "Ambox_current_red.svg", "red_question_mark.svg"]
+        while any(keyword in str(self_img.get("src")) for keyword in listOfIMGFilterKeywords):
+            self_img = self_img.findNext('img')
         self_img = "https:" + self_img.get('src')
 
     if currentLevel > MAX_LEVEL:
@@ -40,7 +46,11 @@ def scrape(self_url, currentLevel):
 
     if SEARCH_MODE == 1: # OPTION 1: Use this to search only the FIRST paragraph of each page for hyperlinks
         tag = soup.find('p') # search for first paragraph
-        while (tag.find('a') != None and 'Coordinates' in tag.find('a').contents) or (tag.get('class') != None): # if first search result is not a pure <p> tag nor a coordinate link
+        table = tag.findParents('table')
+        while table: # table is not empty; tag is found in a table
+            tag = tag.findNext('p')
+            table = tag.findParents('table')
+        while (tag.find('a') != None and 'Coordinates' in tag.find('a').contents) or ((tag.get('class') != "mw-redirect") and (tag.get('class') != None)): # if first search result is not a pure <p> tag nor a coordinate link
             tag = tag.findNext('p')
         listTags.extend(tag.findAll('a'))
     elif SEARCH_MODE == 2: # OPTION 2: Use this to search the introduction of each page only for hyperlinks
@@ -57,7 +67,7 @@ def scrape(self_url, currentLevel):
     listOfFilterKeywords = ['cite_note', 'File', 'wikimedia', 'Help', ':Verifiability', 'Wikipedia:', 'wiktionary.org'] # stores list of keywords that indicates links to be filtered out
     for tag in listTags:
         if not any(keyword in str(tag) for keyword in listOfFilterKeywords): # checks if keyword is found; if so, skip this tag
-            if 'title' in tag.attrs and 'href' in tag.attrs: # checks if title and link elements exist in the tag
+            if 'title' in tag.attrs and 'href' in tag.attrs: # checks if title and link elements exist in the tags
                 #listLinks.append((tag['title'], HOME_URL + tag['href'])) # appends a title-url pair to listLinks
                 entry = {"self_title": self_title, "self_url": self_url, "self_img": self_img, "ext_title": tag['title'], "ext_url": HOME_URL + tag['href'], "current_level": currentLevel} # stores a dictionary of the information regarding each hyperlink i.e. which page it is found on
                 if entry not in entryList: # filters out entries already present
@@ -70,6 +80,7 @@ def proc_data(entryList, isMobileBrowser):
     urls = list(set([ data['self_url'] for data in entryList ])) # removes URL duplicates from self_urls
     urls.extend(list(set([ data['ext_url'] for data in entryList ]))) # adds other URLs branches to list
     
+    
     #print(entryList)
     nodeList = [] # to store nodes
     for url in urls:
@@ -80,7 +91,7 @@ def proc_data(entryList, isMobileBrowser):
                     nodeList.append(entry)
                 break
             """
-            elif data["current_level"] == MAX_LEVEL and url == data["ext_url"]: # search again from self_urls?
+            elif url == data["ext_url"]: # search again from self_urls?
                 entry = {"id": url, "label": data["ext_title"], "level": data["current_level"], "img": None} # fix
                 if entry not in nodeList:
                     nodeList.append(entry)
@@ -101,7 +112,12 @@ def proc_data(entryList, isMobileBrowser):
 
 
 def generate_lists(self_url, max_level, isMobileBrowser, search_mode):
-    requests_toolbelt.adapters.appengine.monkeypatch() # patches requests as it has compatibility issues with Google App Engine/ comment this out to test on development server
+    #requests_toolbelt.adapters.appengine.monkeypatch() # patches requests as it has compatibility issues with Google App Engine/ comment this out to test on development server
+
+    new_wikipedia_region = self_url.split("wikipedia.org", 1)[0]
+    new_home_url = new_wikipedia_region + "wikipedia.org"
+    global HOME_URL
+    HOME_URL = new_home_url
 
     global MAX_LEVEL
     MAX_LEVEL = int(max_level)
