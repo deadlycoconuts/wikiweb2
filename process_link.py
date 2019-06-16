@@ -27,6 +27,10 @@ def scrape(self_url, currentLevel):
 
     if SEARCH_MODE == 1: # OPTION 1: Use this to search only the FIRST paragraph of each page for hyperlinks
         tag = soup.find('p') # search for first paragraph
+        table = tag.findParents('table')
+        while table: # table is not empty; tag is found in a table
+            tag = tag.findNext('p')
+            table = tag.findParents('table')
         while (tag.find('a') != None and 'Coordinates' in tag.find('a').contents) or (tag.get('class') != None): # if first search result is not a pure <p> tag nor a coordinate link
             tag = tag.findNext('p')
         listTags.extend(tag.findAll('a'))
@@ -50,19 +54,15 @@ def scrape(self_url, currentLevel):
                 if entry not in entryList: # filters out entries already present
                     entryList.append(entry)
                 scrape(entry["ext_url"], currentLevel) # depth-search via recursion
-    """
-    for link in listLinks: # for each hyperlink found
-        entry = {"self_title": self_title, "self_url": self_url, "ext_title": link[0], "ext_url": link[1], "current_level": currentLevel} # stores a dictionary of the information regarding each hyperlink i.e. which page it is found on
-        if entry not in entryList: # filters out links already present
-            entryList.append(entry)
-        scrape(link[1], currentLevel) # depth-search via recursion """
+    
     return entryList
 
 def proc_data(entryList, isMobileBrowser): 
     # creates a list to store unique urls found
     urls = list(set([ data['self_url'] for data in entryList ])) # removes URL duplicates from self_urls
     urls.extend(list(set([ data['ext_url'] for data in entryList ]))) # adds other URLs branches to list
-   
+    
+    #print(entryList)
     nodeList = [] # to store nodes
     for url in urls:
         for data in entryList:
@@ -71,7 +71,7 @@ def proc_data(entryList, isMobileBrowser):
                 if entry not in nodeList:
                     nodeList.append(entry)
                 break
-            elif url == data["ext_url"]:
+            elif url == data["ext_url"]: # search again from self_urls?
                 entry = {"id": url, "label": data["ext_title"], "level": data["current_level"]}
                 if entry not in nodeList:
                     nodeList.append(entry)
@@ -84,7 +84,8 @@ def proc_data(entryList, isMobileBrowser):
         else:
             # strength formula 
             strength = 0.8 - 0.4*data["current_level"]/MAX_LEVEL
-        linkList.append({"target": data["self_url"], "source": data["ext_url"], "strength": strength})
+        if data["ext_url"] != None:
+            linkList.append({"target": data["self_url"], "source": data["ext_url"], "strength": strength})
     
     return nodeList, linkList
 
@@ -92,9 +93,17 @@ def proc_data(entryList, isMobileBrowser):
 def generate_lists(self_url, max_level, isMobileBrowser, search_mode):
     requests_toolbelt.adapters.appengine.monkeypatch() # patches requests as it has compatibility issues with Google App Engine/ comment this out to test on development server
 
+    # Changes HOME_URL 
+    new_wikipedia_region = self_url.split("wikipedia.org", 1)[0]
+    new_home_url = new_wikipedia_region + "wikipedia.org"
+    global HOME_URL
+    HOME_URL = new_home_url
+
+    # Sets MAX_LEVEL
     global MAX_LEVEL
     MAX_LEVEL = int(max_level)
     
+    # Sets SEARCH_MODE
     global SEARCH_MODE
     SEARCH_MODE = int(search_mode)
 
