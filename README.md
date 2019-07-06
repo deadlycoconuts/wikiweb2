@@ -3,9 +3,12 @@
 
 This is a web application designed to visualise the links between different Wikipedia pages. Try it out at: http://www.wikiweb.appspot.com
 
+### Background
+This project is initiated in 2019 at CentraleSupélec, and has been undertaken by Zi Yi EWE and supervised by Professor Christian CHABRERIE. It has been carried out to fulfil the *Projet Innovation* (Innovation Project) course requirement in Semester 8 of the second year of the Ecole Centrale Engineering programme.
+
 ## Table of Contents
 
-- [How to use](#How-to-use)
+- [How to use](#how-to-use)
 - [Features](#features)
 - [Installation](#installation)
 - [Full Documentation](#full-documentation)
